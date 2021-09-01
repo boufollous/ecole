@@ -1,29 +1,53 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Log in!{% endblock %}
+{% extends 'auth.html.twig' %}
+{% block title 'Connexion' %}
 
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+    <div class="nk-split nk-split-page nk-split-md">
+        <div class="nk-split-content nk-block-area nk-block-area-column nk-auth-container bg-white">
+            <div class="nk-block nk-block-middle nk-auth-body">
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                {% if app.user %}
+                    <div class="mb-3">
+                        You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                    </div>
+                {% endif %}
+
+                <div class="nk-block-head">
+                    <div class="nk-block-head-content"><h5 class="nk-block-title">Connexion</h5>
+                        <div class="nk-block-des">
+                            <p>Accédez à l'application en utilisant votre adresse électronique et votre code d'accès.</p>
+                        </div>
+                    </div>
+                </div>
+                <form action="{{ path('auth_login') }}" method="post" class="form-validate is-alter">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                    <div class="form-group">
+                        <div class="form-label-group">
+                            <label class="form-label" for="email">Email</label>
+                        </div>
+                        <div class="form-control-wrap">
+                            <input value="{{ last_username }}" name="email" autocomplete="email"  type="email" class="form-control form-control-lg" required id="email" placeholder="Entrez votre adresse e-mail">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-label-group">
+                            <label class="form-label" for="password">Mot de passe</label>
+                        </div>
+                        <div class="form-control-wrap">
+                            <input autocomplete="current-password" name="password"  type="password" class="form-control form-control-lg" required id="password" placeholder="Entrez votre mot de passe">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-lg btn-primary btn-block">connexion</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    {% endif %}
-
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-
-    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
+        <div class="nk-split-content nk-split-stretch bg-abstract"
+             style="background-image: url('https://images.pexels.com/photos/4260325/pexels-photo-4260325.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'); background-size: cover;"
+        ></div>
+    </div>
 {% endblock %}

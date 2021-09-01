@@ -11,6 +11,7 @@ class LoginController extends AbstractController
 {
     /**
      * @Route("/login", name="auth_login")
+     * @Route("/", name="home", methods={"GET"})
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
