@@ -1,0 +1,28 @@
+{% extends 'auth.html.twig' %}
+{% block title 'Inscription' %}
+
+{% block body %}
+    <div class="nk-split nk-split-page nk-split-md">
+        <div class="nk-split-content nk-block-area nk-block-area-column nk-auth-container bg-white">
+            <div class="nk-block nk-block-middle nk-auth-body">
+                <div class="nk-block-head">
+                    <div class="nk-block-head-content"><h5 class="nk-block-title">Inscription</h5>
+                        <div class="nk-block-des">
+                            <p>Accédez à l'application en utilisant votre adresse électronique et votre code d'accès.</p>
+                        </div>
+                    </div>
+                </div>
+
+                {{ form_start(form) }}
+                    {{ form_rest(form) }}
+                    <div class="form-group">
+                        <button class="btn btn-lg btn-primary btn-block">Inscription</button>
+                    </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+        <div class="nk-split-content nk-split-stretch bg-abstract"
+             style="background-image: url('https://images.pexels.com/photos/4260325/pexels-photo-4260325.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'); background-size: cover;"
+        ></div>
+    </div>
+{% endblock %}

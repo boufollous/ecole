@@ -9,9 +9,13 @@
                     <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                 {% endif %}
 
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success">{{ message }}</div>
+                {% endfor %}
+
                 {% if app.user %}
                     <div class="mb-3">
-                        You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                        You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('auth_logout') }}">Logout</a>
                     </div>
                 {% endif %}
 
@@ -44,6 +48,8 @@
                         <button class="btn btn-lg btn-primary btn-block">connexion</button>
                     </div>
                 </form>
+                <div class="form-note-s2 pt-4"> vous n'avez pas de compte ? <a href="{{ path('auth_registration') }}">Créer un compte</a>
+                </div>
             </div>
         </div>
         <div class="nk-split-content nk-split-stretch bg-abstract"

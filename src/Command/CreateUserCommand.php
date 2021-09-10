@@ -40,11 +40,7 @@ class CreateUserCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $user = (new User())
-            ->setRoles(['ROLE_ADMIN', 'ROLE_USER'])
-            ->setName($input->getOption('name'))
-            ->setSurname($input->getOption('surname'))
-            ->setEmail($input->getOption('email'));
+        $user = User::createFromCommand($input);
 
         $user->setPassword(
             password: $this->hasher->hashPassword(

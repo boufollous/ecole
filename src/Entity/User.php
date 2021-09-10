@@ -2,8 +2,10 @@
 
 namespace App\Entity;
 
+use App\DataTransfert\RegistrationRequestData;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -46,9 +48,40 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private ?string $surname = null;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private bool $is_confirmed = false;
+
+    /**
+     * @ORM\Column(type="datetime_immutable", nullable=true)
+     */
+    private ?\DateTimeImmutable $confirmed_at = null;
+
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public static function createFromRegistrationRequest(RegistrationRequestData $data): User
+    {
+        return (new User())
+            ->setEmail($data->email)
+            ->setName($data->name)
+            ->setSurname($data->surname)
+            ->setIsConfirmed(false)
+            ->setRoles(['ROLE_USER']);
+    }
+
+    public static function createFromCommand(InputInterface $input): User
+    {
+        return (new User())
+            ->setRoles(['ROLE_ADMIN', 'ROLE_USER'])
+            ->setName($input->getOption('name'))
+            ->setIsConfirmed(true)
+            ->setConfirmedAt(new \DateTimeImmutable())
+            ->setSurname($input->getOption('surname'))
+            ->setEmail($input->getOption('email'));
     }
 
     public function getEmail(): ?string
@@ -155,6 +188,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setSurname(string $surname): self
     {
         $this->surname = $surname;
+
+        return $this;
+    }
+
+    public function getIsConfirmed(): ?bool
+    {
+        return $this->is_confirmed;
+    }
+
+    public function setIsConfirmed(bool $is_confirmed): self
+    {
+        $this->is_confirmed = $is_confirmed;
+
+        return $this;
+    }
+
+    public function getConfirmedAt(): ?\DateTimeImmutable
+    {
+        return $this->confirmed_at;
+    }
+
+    public function setConfirmedAt(?\DateTimeImmutable $confirmed_at): self
+    {
+        $this->confirmed_at = $confirmed_at;
 
         return $this;
     }
