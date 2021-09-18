@@ -15,9 +15,13 @@ class LoginController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
+        $user = $this->getUser();
+         if ($user) {
+             if ($this->isGranted("ROLE_ADMIN", $user)) {
+                 return $this->redirectToRoute("admin_index");
+             }
+             return $this->redirectToRoute('student_index');
+         }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
