@@ -9,10 +9,8 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class LoginController extends AbstractController
 {
-    /**
-     * @Route("/login", name="auth_login")
-     * @Route("/", name="home", methods={"GET"})
-     */
+    #[Route('/login', name: 'auth_login', methods: ['GET', 'POST'])]
+    #[Route('/', name: 'home', methods: ['GET'])]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         $user = $this->getUser();
@@ -31,9 +29,7 @@ class LoginController extends AbstractController
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
-    /**
-     * @Route("/logout", name="auth_logout")
-     */
+    #[Route('/logout', name: 'auth_logout')]
     public function logout()
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');

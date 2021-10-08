@@ -10,14 +10,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MainController extends AbstractController
 {
-    /**
-     * @Route("/student", name="student_index", methods={"GET"})
-     * @return Response
-     * @author bernard-ng <bernard@devscast.tech>
-     */
+    #[Route('/student', name: 'student_index', methods: ['GET'])]
     public function index(): Response
     {
         return $this->render('student/index.html.twig');
     }
-
 }

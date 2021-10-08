@@ -16,9 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class RegistrationController extends AbstractController
 {
-    /**
-     * @Route(path="/registration", name="auth_registration", methods={"GET", "POST"})
-     */
+    #[Route('/registration', name: 'auth_registration', methods: ['GET', 'POST'])]
     public function register(
         Request $request,
         UserPasswordHasherInterface $hasher,

@@ -15,12 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class MainController extends AbstractController
 {
-
-    /**
-     * @Route("/admin", name="admin_index", methods={"GET"})
-     * @return Response
-     * @author bernard-ng <bernard@devscast.tech>
-     */
+    #[Route('/admin', name: 'admin_index', methods: ['GET'])]
     public function index(): Response
     {
         return $this->render('admin/index.html.twig');
