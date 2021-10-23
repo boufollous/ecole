@@ -6,8 +6,10 @@
             </a>
         </div>
         <div class="nk-menu-trigger mr-n2">
-            <span role="button" class="nk-nav-toggle nk-quick-nav-icon d-xl-none" data-target="sidebarMenu"><em class="ni ni-arrow-left"></em></span>
-            <span role="button" class="nk-nav-compact nk-quick-nav-icon d-none d-xl-inline-flex" data-target="sidebarMenu">
+            <span role="button" class="nk-nav-toggle nk-quick-nav-icon d-xl-none" data-target="sidebarMenu"><em
+                        class="ni ni-arrow-left"></em></span>
+            <span role="button" class="nk-nav-compact nk-quick-nav-icon d-none d-xl-inline-flex"
+                  data-target="sidebarMenu">
                 <em class="ni ni-arrow-left"></em>
             </span>
         </div>
@@ -16,7 +18,12 @@
         <div class="nk-sidebar-content">
             <div class="nk-sidebar-menu" data-simplebar>
                 <ul class="nk-menu">
-                    {# liens #}
+                    <li class="nk-menu-item">
+                        <a href="{{ path('admin_user_index') }}" class="nk-menu-link" data-original-title="" title="">
+                            <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
+                            <span class="nk-menu-text">Utilisateurs</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
