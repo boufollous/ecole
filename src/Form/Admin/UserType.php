@@ -17,9 +17,19 @@ class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        // on vérifie si on crée ou édit un utilisateur
+        $data = $builder->getData();
+        $edit = $data instanceof User && $data->getId() !== null;
+
         $builder
-            ->add('email', EmailType::class)
-            ->add('password', PasswordType::class)
+            ->add('email', EmailType::class);
+
+            // le mot de pass est obligation seulement à la création
+            if (!$edit) {
+                $builder->add('password', PasswordType::class);
+            }
+
+            $builder
             ->add('name', TextType::class)
             ->add('surname', TextType::class)
             ->add('is_confirmed', CheckboxType::class)

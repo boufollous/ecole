@@ -6,6 +6,8 @@ namespace App\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -32,15 +34,15 @@ abstract class CrudController extends AbstractController
         );
     }
 
-    public function crudNew(): Response
+    public function crudNew(?\Closure $callback = null): Response
     {
+        $request = $this->stack->getCurrentRequest();
         $item = new $this->entity;
         $form = $this->createForm($this->form, $item);
-        $form->handleRequest($this->stack->getCurrentRequest());
+        $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->em->persist($item);
-            $this->em->flush();
+            $this->persistAfterCallback($callback, $item, $request, $form);
 
             return $this->redirectToRoute(
                 route: "{$this->route}_index",
@@ -57,13 +59,15 @@ abstract class CrudController extends AbstractController
         );
     }
 
-    public function crudEdit(object $item): Response
+    public function crudEdit(object $item, ?\Closure $callback = null): Response
     {
+        $request = $this->stack->getCurrentRequest();
         $form = $this->createForm($this->form, $item);
-        $form->handleRequest($this->stack->getCurrentRequest());
+        $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->em->flush();
+            $this->persistAfterCallback($callback, $item, $request, $form);
+
             return $this->redirectToRoute(
                 route: "{$this->route}_index",
                 status: Response::HTTP_SEE_OTHER
@@ -104,5 +108,22 @@ abstract class CrudController extends AbstractController
             route: "{$this->route}_index",
             status: Response::HTTP_SEE_OTHER
         );
+    }
+
+    /**
+     * permet d'exécuter des modifications sur l'entité depuis le controller enfant
+     * @param \Closure|null $callback
+     * @param object $item
+     * @param Request|null $request
+     * @param FormInterface $form
+     * @author bernard-ng <bernard@devscast.tech>
+     */
+    private function persistAfterCallback(?\Closure $callback, object $item, ?Request $request, FormInterface $form): void
+    {
+        if ($callback) {
+            $item = $callback($item, $request, $form);
+        }
+        $this->em->persist($item);
+        $this->em->flush();
     }
 }

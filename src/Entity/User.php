@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -24,6 +25,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\Email()
      */
     private ?string $email = null;
 
@@ -40,11 +42,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private ?string $name = null;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private ?string $surname = null;
 
@@ -89,7 +93,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail(?string $email): self
     {
         $this->email = $email;
 
@@ -126,7 +130,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return array_unique($roles);
     }
 
-    public function setRoles(array $roles): self
+    public function setRoles(?array $roles): self
     {
         $this->roles = $roles;
 
@@ -136,12 +140,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see PasswordAuthenticatedUserInterface
      */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword(?string $password): self
     {
         $this->password = $password;
 
@@ -173,7 +177,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
 
@@ -185,7 +189,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->surname;
     }
 
-    public function setSurname(string $surname): self
+    public function setSurname(?string $surname): self
     {
         $this->surname = $surname;
 
@@ -197,7 +201,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->is_confirmed;
     }
 
-    public function setIsConfirmed(bool $is_confirmed): self
+    public function setIsConfirmed(?bool $is_confirmed): self
     {
         $this->is_confirmed = $is_confirmed;
 
