@@ -1,4 +1,4 @@
-const buttons = document.querySelectorAll('[delete-button]')
+const buttons = document.querySelectorAll('[data-delete-button]')
 if (buttons.length > 0) {
     buttons.forEach(button => {
         const [url, _token, content] = [

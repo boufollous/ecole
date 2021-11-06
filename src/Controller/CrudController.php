@@ -18,7 +18,7 @@ abstract class CrudController extends AbstractController
 
     public function __construct(
         protected EntityManagerInterface $em,
-        protected RequestStack $stack
+        protected RequestStack           $stack
     )
     {
     }
@@ -81,13 +81,25 @@ abstract class CrudController extends AbstractController
 
     public function crudDelete(object $item): Response
     {
-        $id = "delete_{$item->getId()}";
-        $token = $this->stack->getCurrentRequest()->get('_token');
+        $request = $this->stack->getCurrentRequest();
+        $isAjaxRequest = $request->get('ajax', false);
+        $token = $isAjaxRequest ?
+            json_decode($request->getContent())->{'_token'} :
+            $request->get('_token');
+        $isTokenValid = $this->isCsrfTokenValid("delete_{$item->getId()}", $token);
 
-        if ($this->isCsrfTokenValid($id, $token)) {
+        if ($isTokenValid) {
             $this->em->remove($item);
             $this->em->flush();
         }
+
+        if ($isAjaxRequest) {
+            if ($isTokenValid) {
+                return new Response(status: Response::HTTP_CREATED);
+            }
+            return new Response(status: Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
         return $this->redirectToRoute(
             route: "{$this->route}_index",
             status: Response::HTTP_SEE_OTHER

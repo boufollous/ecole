@@ -43,7 +43,12 @@
                                             <a href="{{ path('admin_user_edit', {id: item.id}) }}" class="text-primary" title="Éditer" >
                                                 Éditer
                                             </a>
-                                            <a href="#" data-url="{{ path('admin_user_edit', {id: item.id}) }}" data-token="delete_{{ item.id }}" class="text-danger" title="Éditer" >
+                                            <a data-delete-button href="#"
+                                               data-target="tr"
+                                               data-url="{{ path('admin_user_delete', {id: item.id, ajax: true}) }}"
+                                               data-token="{{ csrf_token("delete_#{item.id}") }}"
+                                               class="text-danger"
+                                               title="Supprimer">
                                                 Supprimer
                                             </a>
                                         </li>
