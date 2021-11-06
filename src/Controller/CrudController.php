@@ -25,9 +25,9 @@ abstract class CrudController extends AbstractController
 
     public function crudIndex(): Response
     {
-        $items = null;
+        $items = $this->em->getRepository($this->entity)->findAll();
         return $this->render(
-            view: "$this->template_path/index.html.twig",
+            view: "{$this->template_path}/index.html.twig",
             parameters: compact('items')
         );
     }
@@ -42,11 +42,14 @@ abstract class CrudController extends AbstractController
             $this->em->persist($item);
             $this->em->flush();
 
-            return $this->redirectToRoute("{$this->route}_index", status: Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute(
+                route: "{$this->route}_index",
+                status: Response::HTTP_SEE_OTHER
+            );
         }
 
         return $this->render(
-            view: "$this->template_path/new.html.twig",
+            view: "{$this->template_path}/new.html.twig",
             parameters: [
                 'form' => $form->createView(),
                 'item' => $item
@@ -61,11 +64,14 @@ abstract class CrudController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->flush();
-            return $this->redirectToRoute("{$this->route}_index", status: Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute(
+                route: "{$this->route}_index",
+                status: Response::HTTP_SEE_OTHER
+            );
         }
 
         return $this->render(
-            view: "$this->template_path/edit.html.twig",
+            view: "{$this->template_path}/edit.html.twig",
             parameters: [
                 'form' => $form->createView(),
                 'item' => $item
@@ -75,11 +81,16 @@ abstract class CrudController extends AbstractController
 
     public function crudDelete(object $item): Response
     {
-        $request = $this->stack->getCurrentRequest();
-        if ($this->isCsrfTokenValid("delete_{$item->getId()}", $request->request->get('_token'))) {
+        $id = "delete_{$item->getId()}";
+        $token = $this->stack->getCurrentRequest()->get('_token');
+
+        if ($this->isCsrfTokenValid($id, $token)) {
             $this->em->remove($item);
             $this->em->flush();
         }
-        return $this->redirectToRoute("{$this->route}_index", status: Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute(
+            route: "{$this->route}_index",
+            status: Response::HTTP_SEE_OTHER
+        );
     }
 }

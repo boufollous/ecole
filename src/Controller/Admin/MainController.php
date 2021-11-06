@@ -8,11 +8,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * Class MainController
- * @package App\Controller\Admin
- * @author bernard-ng <bernard@devscast.tech>
- */
 class MainController extends AbstractController
 {
     #[Route('/admin', name: 'admin_index', methods: ['GET'])]
