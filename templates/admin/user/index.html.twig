@@ -6,10 +6,10 @@
             <div class="card-title-group">
                 <div class="card-title"><h6 class="title">Tous les utilisateurs</h6></div>
                 <div class="card-tools">
-                    <button class="btn btn-primary" title="Ajouter">
+                    <a href="{{ path('admin_user_new') }}" class="btn btn-primary" title="Ajouter">
                         <em class="icon ni ni-plus"></em>
                         Ajouter
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -22,24 +22,40 @@
                     <th>Name</th>
                     <th>Surname</th>
                     <th>email</th>
-                    <td>&nbsp;</td>
+                    <th>&nbsp;</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for item in items %}
-                    <tr class="tb-odr-item">
+                    <tr>
                         <td>{{ item.id }}</td>
                         <td>{{ item.name }}</td>
                         <td>{{ item.surname }}</td>
                         <td>{{ item.email }}</td>
-                        <td></td>
+                        <td>
+                            <div class="dropdown">
+                                <a class="text-soft dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown" data-offset="-8,0" aria-expanded="false">
+                                    <em class="icon ni ni-more-h"></em>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-xs">
+                                    <ul class="link-list-plain">
+                                        <li>
+                                            <a href="{{ path('admin_user_edit', {id: item.id}) }}" class="text-primary" title="Éditer" >
+                                                Éditer
+                                            </a>
+                                            <a href="#" data-url="{{ path('admin_user_edit', {id: item.id}) }}" data-token="delete_{{ item.id }}" class="text-danger" title="Éditer" >
+                                                Supprimer
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
-    <div class="d-flex justify-content-center align-items-center mt-2">
-        // pagination
-    </div>
+    <div class="d-flex justify-content-center align-items-center mt-4"></div>
 {% endblock %}
