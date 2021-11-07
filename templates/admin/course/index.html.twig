@@ -21,6 +21,7 @@
                 <tr>
                     <th>id</th>
                     <th>Name</th>
+                    <th>Document</th>
                     <th>&nbsp;</th>
                 </tr>
                 </thead>
@@ -29,6 +30,7 @@
                     <tr>
                         <td>{{ item.id }}</td>
                         <td>{{ item.name }}</td>
+                        <td><a href="{{ vich_uploader_asset(item, 'document_file') }}">voir le document</a></td>
                         <td>
                             <div class="dropdown">
                                 <a class="text-soft dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown" data-offset="-8,0" aria-expanded="false">

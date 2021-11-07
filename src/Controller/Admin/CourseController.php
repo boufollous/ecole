@@ -6,7 +6,7 @@ namespace App\Controller\Admin;
 
 use App\Controller\CrudController;
 use App\Entity\Course;
-use App\Form\CourseType;
+use App\Form\Admin\CourseType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 

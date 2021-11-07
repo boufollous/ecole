@@ -18,9 +18,8 @@ if (buttons.length > 0) {
                         body: JSON.stringify({_token})
                     })
 
-                    response.status === 202 ?
-                        removeFadeOut(button.closest(button.getAttribute('data-target'))) :
-                        removeButtonLoader(button, content)
+                    // actualise la page pour voir les changement après suppression
+                    response.status === 202 ? window.location.reload() : removeButtonLoader(button, content)
                     window.alert('Suppression effectuée avec succès !')
                 } catch (e) {
                     console.error({e})
