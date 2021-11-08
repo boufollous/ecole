@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block title "Contacter l'administrateur" %}
+
+{% block content %}
+    <div class="card card-bordered card-full">
+        <div class="card-inner border-bottom">
+            <div class="card-title-group">
+                <div class="card-title">
+                    <h6 class="title">Contacter l'administrateur</h6>
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-bordered card-preview">
+            <div class="card-body">
+                <div class="mb-2">
+                    {% for flash in app.flashes('error') %}
+                        <div class="alert alert-danger">{{ flash }}</div>
+                    {% endfor %}
+                </div>
+
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button class="btn btn-primary btn-block" type="submit">Envoyer</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

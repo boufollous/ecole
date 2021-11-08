@@ -5,31 +5,39 @@
                 École
             </a>
         </div>
-        <div class="nk-menu-trigger mr-n2">
-            <span role="button" class="nk-nav-toggle nk-quick-nav-icon d-xl-none" data-target="sidebarMenu"><em
-                        class="ni ni-arrow-left"></em></span>
-            <span role="button" class="nk-nav-compact nk-quick-nav-icon d-none d-xl-inline-flex"
-                  data-target="sidebarMenu">
-                <em class="ni ni-arrow-left"></em>
-            </span>
-        </div>
     </div>
     <div class="nk-sidebar-element">
         <div class="nk-sidebar-content">
             <div class="nk-sidebar-menu" data-simplebar>
                 <ul class="nk-menu">
-                    <li class="nk-menu-item">
-                        <a href="{{ path('admin_user_index') }}" class="nk-menu-link" data-original-title="" title="">
-                            <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
-                            <span class="nk-menu-text">Utilisateurs</span>
-                        </a>
-                    </li>
-                    <li class="nk-menu-item">
-                        <a href="{{ path('admin_course_index') }}" class="nk-menu-link" data-original-title="" title="">
-                            <span class="nk-menu-icon"><em class="icon ni ni-book"></em></span>
-                            <span class="nk-menu-text">Cours</span>
-                        </a>
-                    </li>
+                    {# on sépare les liens en fonction du role de l'utilisateur #}
+                    {% if is_granted('ROLE_ADMIN', app.user) %}
+                        <li class="nk-menu-item">
+                            <a href="{{ path('admin_user_index') }}" class="nk-menu-link" data-original-title="" title="">
+                                <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
+                                <span class="nk-menu-text">Utilisateurs</span>
+                            </a>
+                        </li>
+                        <li class="nk-menu-item">
+                            <a href="{{ path('admin_course_index') }}" class="nk-menu-link" data-original-title="" title="">
+                                <span class="nk-menu-icon"><em class="icon ni ni-book"></em></span>
+                                <span class="nk-menu-text">Cours</span>
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="nk-menu-item">
+                            <a href="{{ path('student_course_index') }}" class="nk-menu-link" data-original-title="" title="">
+                                <span class="nk-menu-icon"><em class="icon ni ni-book"></em></span>
+                                <span class="nk-menu-text">Mes cours</span>
+                            </a>
+                        </li>
+                        <li class="nk-menu-item">
+                            <a href="{{ path('student_contact_index') }}" class="nk-menu-link" data-original-title="" title="">
+                                <span class="nk-menu-icon"><em class="icon ni ni-emails"></em></span>
+                                <span class="nk-menu-text">Contact</span>
+                            </a>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

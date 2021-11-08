@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="card card-bordered" id="data">
+        <div class="card-aside-wrap">
+            <div class="card-content">
+                <div class="card-inner">
+                    <div class="nk-block">
+                        <div class="nk-block-head">
+                            <h5 class="title">Détails du cours</h5>
+                        </div>
+
+                        <div class="nk-block-content">
+                            <div class="profile-ud-list mt-5">
+                                <div class="profile-ud-item">
+                                    <div class="profile-ud plain">
+                                        <span class="profile-ud-label">Nom</span>
+                                        <span class="profile-ud-value">{{ item.name }}</span>
+                                    </div>
+                                </div>
+                                <div class="profile-ud-item">
+                                    <div class="profile-ud plain">
+                                        <span class="profile-ud-label">Description</span>
+                                        <span class="profile-ud-value">{{ item.description }}</span>
+                                    </div>
+                                </div>
+                                <div class="profile-ud-item">
+                                    <div class="profile-ud plain">
+                                        <span class="profile-ud-label">Document</span>
+                                        <span class="profile-ud-value">
+                                        <a href="{{ vich_uploader_asset(item, 'document_file') }}">
+                                            voir le document
+                                        </a>
+                                    </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
