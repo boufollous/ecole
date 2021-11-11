@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+{% block title 'Éditer mon profile' %}
+
+{% block content %}
+    <div class="mb-2">
+        {% for flash in app.flashes('error') %}
+            <div class="alert alert-danger">{{ flash }}</div>
+        {% endfor %}
+    </div>
+    <div class="card card-bordered card-full mb-4">
+        <div class="card-inner border-bottom">
+            <div class="card-title-group">
+                <div class="card-title"><h6 class="title">Éditer mon profile </h6></div>
+            </div>
+        </div>
+
+        <div class="card card-bordered card-preview">
+            <div class="card-body">
+                {{ form_start(updateProfileForm) }}
+                {{ form_widget(updateProfileForm) }}
+                <button class="btn btn-primary btn-block" type="submit">Envoyer</button>
+                {{ form_end(updateProfileForm) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="card card-bordered card-full">
+        <div class="card-inner border-bottom">
+            <div class="card-title-group">
+                <div class="card-title"><h6 class="title">Éditer mon mot de passe</h6></div>
+            </div>
+        </div>
+
+        <div class="card card-bordered card-preview">
+            <div class="card-body">
+                {{ form_start(updatePasswordForm) }}
+                {{ form_widget(updatePasswordForm) }}
+                <button class="btn btn-primary btn-block" type="submit">Envoyer</button>
+                {{ form_end(updatePasswordForm) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

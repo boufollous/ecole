@@ -1,16 +1,22 @@
 {% extends 'base.html.twig' %}
-{% title 'Détails du cours : ' ~ item.name %}
+{% block title 'Mon profile' %}
 
 {% block content %}
     <div class="card card-bordered" id="data">
-        <div class="card-aside-wrap">
+        <div class="card-inner border-bottom">
+            <div class="card-title-group">
+                <div class="card-title"><h6 class="title">Mon profile</h6></div>
+                <div class="card-tools">
+                    <a href="{{ path('student_profile_edit') }}" class="btn btn-primary" title="Modifier">
+                        <em class="icon ni ni-edit"></em>
+                        Modifier
+                    </a>
+                </div>
+            </div>
+
             <div class="card-content">
                 <div class="card-inner">
                     <div class="nk-block">
-                        <div class="nk-block-head">
-                            <h5 class="title">Détails du cours</h5>
-                        </div>
-
                         <div class="nk-block-content">
                             <div class="profile-ud-list mt-5">
                                 <div class="profile-ud-item">
@@ -21,18 +27,14 @@
                                 </div>
                                 <div class="profile-ud-item">
                                     <div class="profile-ud plain">
-                                        <span class="profile-ud-label">Description</span>
-                                        <span class="profile-ud-value">{{ item.description }}</span>
+                                        <span class="profile-ud-label">Surname</span>
+                                        <span class="profile-ud-value">{{ item.surname }}</span>
                                     </div>
                                 </div>
                                 <div class="profile-ud-item">
                                     <div class="profile-ud plain">
-                                        <span class="profile-ud-label">Document</span>
-                                        <span class="profile-ud-value">
-                                        <a href="{{ vich_uploader_asset(item, 'document_file') }}">
-                                            voir le document
-                                        </a>
-                                    </span>
+                                        <span class="profile-ud-label">email</span>
+                                        <span class="profile-ud-value">{{ item.email }}</span>
                                     </div>
                                 </div>
                             </div>
