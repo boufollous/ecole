@@ -24,6 +24,12 @@
                                 <span class="nk-menu-text">Cours</span>
                             </a>
                         </li>
+                        <li class="nk-menu-item">
+                            <a href="{{ path('admin_slot_index') }}" class="nk-menu-link" data-original-title="" title="">
+                                <span class="nk-menu-icon"><em class="icon ni ni-calendar"></em></span>
+                                <span class="nk-menu-text">Planning</span>
+                            </a>
+                        </li>
                     {% else %}
                         <li class="nk-menu-item">
                             <a href="{{ path('student_course_index') }}" class="nk-menu-link" data-original-title="" title="">
@@ -41,6 +47,12 @@
                             <a href="{{ path('student_profile_index') }}" class="nk-menu-link" data-original-title="" title="">
                                 <span class="nk-menu-icon"><em class="icon ni ni-user"></em></span>
                                 <span class="nk-menu-text">Profile</span>
+                            </a>
+                        </li>
+                        <li class="nk-menu-item">
+                            <a href="{{ path('student_slot_index') }}" class="nk-menu-link" data-original-title="" title="">
+                                <span class="nk-menu-icon"><em class="icon ni ni-calendar"></em></span>
+                                <span class="nk-menu-text">Planning</span>
                             </a>
                         </li>
                     {% endif %}

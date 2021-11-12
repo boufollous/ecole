@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+{% block title 'Tous les créneaux' %}
+
+{% block content %}
+    <div class="card card-bordered card-full">
+        <div class="card-inner border-bottom">
+            <div class="card-title-group">
+                <div class="card-title"><h6 class="title">Tous les créneaux</h6></div>
+                <div class="card-tools">
+                    <a href="{{ path('admin_course_new') }}" class="btn btn-primary" title="Ajouter">
+                        <em class="icon ni ni-plus"></em>
+                        Ajouter
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-bordered card-preview">
+            <table class="table table-orders">
+                <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Toute la journée ?</th>
+                    <th>Début</th>
+                    <th>Fin</th>
+                    <th>&nbsp;</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in items %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.isFullDay }}</td>
+                        <td>{{ item.startingAt | date }}</td>
+                        <td>{{ item.endingAt | date }}</td>
+                        <td>
+                            <div class="dropdown">
+                                <a class="text-soft dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown" data-offset="-8,0" aria-expanded="false">
+                                    <em class="icon ni ni-more-h"></em>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-xs">
+                                    <ul class="link-list-plain">
+                                        <li>
+                                            <a href="{{ path('admin_slot_edit', {id: item.id}) }}" class="text-primary" title="Éditer" >
+                                                Éditer
+                                            </a>
+                                            <a data-delete-button href="#"
+                                               data-target="tr"
+                                               data-url="{{ path('admin_slot_delete', {id: item.id, ajax: true}) }}"
+                                               data-token="{{ csrf_token("delete_#{item.id}") }}"
+                                               class="text-danger"
+                                               title="Supprimer">
+                                                Supprimer
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center align-items-center mt-4"></div>
+{% endblock %}
